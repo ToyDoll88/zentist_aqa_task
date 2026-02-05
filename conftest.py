@@ -7,7 +7,7 @@ def pytest_addoption(parser):
     parser.addoption("--base_url", action="store", default=BASE_URL)
     parser.addoption("--headless", action="store_true")
     parser.addoption("--browser", action="store", default="chromium",
-                     choices=["chromium", "firefox", "webkit"])
+                     choices=["chromium", "firefox"])
 
 
 @pytest.fixture(scope="session")
@@ -37,8 +37,6 @@ def browser(playwright_instance, headless, browser_name):
         browser = playwright_instance.chromium.launch(headless=headless)
     elif browser_name == "firefox":
         browser = playwright_instance.firefox.launch(headless=headless)
-    elif browser_name == "webkit":
-        browser = playwright_instance.webkit.launch(headless=headless)
     else:
         raise ValueError(f"Unknown browser: {browser_name}")
 
